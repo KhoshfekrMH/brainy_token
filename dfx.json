@@ -1,0 +1,29 @@
+{
+  "canisters": {
+    "brainy_token_backend": {
+      "main": "src/brainy_token_backend/main.mo",
+      "type": "motoko"
+    },
+    "brainy_token_frontend": {
+      "dependencies": [
+        "brainy_token_backend"
+      ],
+      "frontend": {
+        "entrypoint": "src/brainy_token_frontend/src/index.html"
+      },
+      "source": [
+        "src/brainy_token_frontend/assets",
+        "dist/brainy_token_frontend/"
+      ],
+      "type": "assets"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
