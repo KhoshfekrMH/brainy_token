@@ -1,8 +1,12 @@
-import * as React from 'react';
+import * as React from "react";
 import {Header} from "./Header";
+import {Faucet} from "./Faucet";
 
 export const App = () => {
     return (
-        <Header />
+        <div>
+            <Header />
+            <Faucet />
+        </div>
     );
 };
