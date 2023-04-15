@@ -1,6 +1,7 @@
 # Various IDEs and Editors
 .vscode/
-.idea/
+.idea/*
+!.idea/rcb-settings.xml
 **/*~
 
 # Mac OSX temporary files
@@ -16,3 +17,21 @@ src/declarations/
 # frontend code
 node_modules/
 dist/
+
+.env
+
+### react ###
+.DS_*
+*.log
+logs
+**/*.backup.*
+**/*.back.*
+
+node_modules
+bower_components
+
+*.sublime*
+
+psd
+thumb
+sketch
