@@ -3,6 +3,8 @@ import Env "env";
 import Debug "mo:base/Debug";
 import Text "mo:base/Text";
 import HashMap "mo:base/HashMap";
+import Iter "mo:base/Iter";
+import Prelude "mo:base/Prelude";
 
 actor Brainy_Token {
     var link1 = "@avocado.yatim.top:2083?type=ws&security=tls&path=%2Fdns0in&host=avocado.yatim.top&sni=avocado.yatim.top#vws";
@@ -11,8 +13,11 @@ actor Brainy_Token {
     var totalSupply : Nat = Env.TOTAL_SUPPLY;
     var symbol : Text = "BKH";
 
-    var balances = HashMap.HashMap<Principal, Nat>(1, Principal.equal, Principal.hash);
-    balances.put(owner, totalSupply);
+    private stable var balanceEntries: [(Principal, Nat)] = [];
+    private var balances = HashMap.HashMap<Principal, Nat>(1, Principal.equal, Principal.hash);
+    if (balances.size() < 1) {
+      balances.put(owner, totalSupply);
+    };
     
     public query func balanceOf(who: Principal) : async Nat {
         let balance : Nat = switch (balances.get(who)) {
@@ -52,5 +57,16 @@ actor Brainy_Token {
         } else {
             return "Insufficient Funds";
         }
+    };
+
+    system func preupgrade() {
+        balanceEntries := Iter.toArray(balances.entries());
+    };
+
+    system func postupgrade() {
+      balances := HashMap.fromIter<Principal, Nat>(balanceEntries.vals(), 1, Principal.equal, Principal.hash);
+      if (balances.size() > 1) {
+        balances.put(owner, totalSupply);
+      }
     };
 };
