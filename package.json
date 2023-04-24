@@ -51,6 +51,8 @@
   ],
   "dependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "@dfinity/auth-client": "^0.15.5",
+    "@dfinity/authentication": "^0.14.2"
   }
 }
